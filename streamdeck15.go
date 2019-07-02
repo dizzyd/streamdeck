@@ -160,35 +160,35 @@ func (deck streamDeck15) dispatchKey(key byte) {
 func (deck streamDeck15) internalIdToKey(id byte) byte {
 	// The deck is setup right-to-left, with 5 keys on each row; translate to a zero-based, left-to-right index
 	switch id {
-	case 0x0:
-		return 4
 	case 0x1:
-		return 3
+		return 4
 	case 0x2:
-		return 2
+		return 3
 	case 0x3:
-		return 1
+		return 2
 	case 0x4:
-		return 0
+		return 1
 	case 0x5:
-		return 9
+		return 0
 	case 0x6:
-		return 8
+		return 9
 	case 0x7:
-		return 7
+		return 8
 	case 0x8:
-		return 6
+		return 7
 	case 0x9:
-		return 5
+		return 6
 	case 0xA:
-		return 14
+		return 5
 	case 0xB:
-		return 13
+		return 14
 	case 0xC:
-		return 12
+		return 13
 	case 0xD:
-		return 11
+		return 12
 	case 0xE:
+		return 11
+	case 0xF:
 		return 10
 	default:
 		return 255
@@ -199,35 +199,35 @@ func (deck streamDeck15) keyToInternalId(key byte) byte {
 	// Translate a left-to-right index to deck-native ID
 	switch key {
 	case 4:
-		return 0x0
-	case 3:
 		return 0x1
-	case 2:
+	case 3:
 		return 0x2
-	case 1:
+	case 2:
 		return 0x3
-	case 0:
+	case 1:
 		return 0x4
-	case 9:
+	case 0:
 		return 0x5
-	case 8:
+	case 9:
 		return 0x6
-	case 7:
+	case 8:
 		return 0x7
-	case 6:
+	case 7:
 		return 0x8
-	case 5:
+	case 6:
 		return 0x9
-	case 14:
+	case 5:
 		return 0xA
-	case 13:
+	case 14:
 		return 0xB
-	case 12:
+	case 13:
 		return 0xC
-	case 11:
+	case 12:
 		return 0xD
-	case 10:
+	case 11:
 		return 0xE
+	case 10:
+		return 0xF
 	default:
 		return 255
 	}

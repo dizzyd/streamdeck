@@ -1,0 +1,6 @@
+github.com/dizzyd/hid v1.1.0 h1:mhs2PD7CNBoi7CAXNYM3YVYXNt0Q8chSMISNvThbmbU=
+github.com/dizzyd/hid v1.1.0/go.mod h1:rykv6Mb0eT7xfdOBivEM8eMuhI0GEuZVjPlnNfdsmxU=
+github.com/dizzyd/hid v1.2.0 h1:NFh7KOISQktPwEWjfkN04Wlw44unyqQlBf6cgx3gguk=
+github.com/dizzyd/hid v1.2.0/go.mod h1:rykv6Mb0eT7xfdOBivEM8eMuhI0GEuZVjPlnNfdsmxU=
+github.com/pkg/errors v0.8.1 h1:iURUrRGxPUNPdy5/HRSm+Yj6okJ6UtLINN0Q9M4+h3I=
+github.com/pkg/errors v0.8.1/go.mod h1:bwawxfHBFNV+L2hUp1rHADufV3IMtnDRdf1r5NINEl0=

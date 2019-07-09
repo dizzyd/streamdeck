@@ -21,6 +21,8 @@ import (
 	"github.com/pkg/errors"
 )
 
+const columns = 5
+
 type streamDeck15 struct {
 	*streamDeckBase
 }
@@ -56,10 +58,9 @@ func (deck streamDeck15) ClearKeyHandler(key byte) error {
 }
 
 func (deck streamDeck15) SetKeyImage(key byte, filename string) error {
-	id := deck.keyToInternalId(key)
-	if id == 255 {
-		return errors.WithStack(ErrInvalidKey)
-	}
+	// The deck uses 1-based numbering for images, so we invert the key into an
+	// id and make sure to add one
+	id := deck.invertKeyOrId(key) + 1
 
 	img, err := loadImage(filename)
 	if err != nil {
@@ -134,7 +135,7 @@ func (deck streamDeck15) ProcessEvents(timeout int) error {
 		if reportId == 1 {
 			// TODO: Revisit for chording support
 			for id, state := range report[1:] {
-				key := deck.internalIdToKey(byte(id))
+				key := deck.invertKeyOrId(byte(id))
 				if state == 1 {
 					deck.dispatchKey(255)
 					deck.dispatchKey(key)
@@ -157,78 +158,8 @@ func (deck streamDeck15) dispatchKey(key byte) {
 	}
 }
 
-func (deck streamDeck15) internalIdToKey(id byte) byte {
-	// The deck is setup right-to-left, with 5 keys on each row; translate to a zero-based, left-to-right index
-	switch id {
-	case 0x1:
-		return 4
-	case 0x2:
-		return 3
-	case 0x3:
-		return 2
-	case 0x4:
-		return 1
-	case 0x5:
-		return 0
-	case 0x6:
-		return 9
-	case 0x7:
-		return 8
-	case 0x8:
-		return 7
-	case 0x9:
-		return 6
-	case 0xA:
-		return 5
-	case 0xB:
-		return 14
-	case 0xC:
-		return 13
-	case 0xD:
-		return 12
-	case 0xE:
-		return 11
-	case 0xF:
-		return 10
-	default:
-		return 255
-	}
+func (deck streamDeck15) invertKeyOrId(value byte) byte {
+	col := value % columns
+	return (value - col) + ((columns - 1) - col)
 }
 
-func (deck streamDeck15) keyToInternalId(key byte) byte {
-	// Translate a left-to-right index to deck-native ID
-	switch key {
-	case 4:
-		return 0x1
-	case 3:
-		return 0x2
-	case 2:
-		return 0x3
-	case 1:
-		return 0x4
-	case 0:
-		return 0x5
-	case 9:
-		return 0x6
-	case 8:
-		return 0x7
-	case 7:
-		return 0x8
-	case 6:
-		return 0x9
-	case 5:
-		return 0xA
-	case 14:
-		return 0xB
-	case 13:
-		return 0xC
-	case 12:
-		return 0xD
-	case 11:
-		return 0xE
-	case 10:
-		return 0xF
-	default:
-		return 255
-	}
-}
